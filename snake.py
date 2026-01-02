@@ -44,7 +44,6 @@ class SnakeGame:
         self.clock = pygame.time.Clock()
         self.reset()
 
-        
     def reset(self):
         self.direction = Direction.RIGHT
 
@@ -67,17 +66,15 @@ class SnakeGame:
 
     def play_step(self, action):
         self.frame_iteration += 1
-        
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 quit()
 
-       
         self._move(action)
         self.snake.insert(0, self.head)
 
-        
         reward = 0
         game_over = False
         if self.is_collision() or self.frame_iteration > 100*len(self.snake):
@@ -85,7 +82,6 @@ class SnakeGame:
             reward = -10
             return reward, game_over, self.score
 
-        
         if self.head == self.food:
             self.score += 1
             reward = 10
@@ -93,7 +89,6 @@ class SnakeGame:
         else:
             self.snake.pop()
 
-       
         self._update_ui()
         self.clock.tick(SPEED)
         # 6. return game over and score
@@ -115,7 +110,6 @@ class SnakeGame:
         self.display.fill(BLACK)
 
         # Draw grid
-  
 
         for pt in self.snake:
             if pt == self.head:
